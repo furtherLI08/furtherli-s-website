@@ -1,4 +1,66 @@
 <!DOCTYPE html>
+<!-- 添加粒子背景效果 -->
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@3.3.0/tsparticles.bundle.min.js"></script>
+<div id="tsparticles" style="position:fixed;z-index:-1;top:0;left:0;width:100vw;height:100vh;"></div>
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+    // 卡片浮动动画
+    const container = document.querySelector('.container');
+    if (container) {
+        container.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            this.style.transform = `rotateY(${x / 18}deg) rotateX(${-y / 18}deg) scale(1.04)`;
+            this.style.boxShadow = `${x/8}px ${y/8+12}px 48px 8px rgba(95,75,139,0.18)`;
+        });
+        container.addEventListener('mouseleave', function() {
+            this.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
+            this.style.boxShadow = '0 8px 32px rgba(60,60,120,0.15)';
+        });
+    }
+
+    // 按钮点击波纹效果
+    document.querySelectorAll('.btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            ripple.style.left = `${e.offsetX}px`;
+            ripple.style.top = `${e.offsetY}px`;
+            this.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        });
+    });
+    // 平滑按钮渐变过渡
+    const btn = document.querySelector('.btn');
+    if (btn) {
+        btn.style.transition = 'background 0.4s cubic-bezier(.4,0,.2,1), box-shadow 0.3s';
+        btn.addEventListener('mouseenter', function() {
+            this.style.background = 'linear-gradient(90deg, #42e695 0%, #5f4b8b 100%)';
+        });
+        btn.addEventListener('mouseleave', function() {
+            this.style.background = 'linear-gradient(90deg, #5f4b8b 0%, #42e695 100%)';
+        });
+    }
+});
+tsParticles.load("tsparticles", {
+    background: { color: { value: "transparent" } },
+    fpsLimit: 60,
+    particles: {
+        number: { value: 40, density: { enable: true, area: 800 } },
+        color: { value: ["#5f4b8b", "#42e695", "#fed6e3"] },
+        shape: { type: "circle" },
+        opacity: { value: 0.5 },
+        size: { value: { min: 2, max: 5 } },
+        move: { enable: true, speed: 1, direction: "none", outModes: { default: "out" } }
+    },
+    interactivity: {
+        events: { onHover: { enable: true, mode: "repulse" }, resize: true },
+        modes: { repulse: { distance: 80, duration: 0.4 } }
+    },
+    detectRetina: true
+});
+</script>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -54,7 +116,7 @@
     <div class="container">
         <h1>欢迎来到FurtherLi软件发布页</h1>
         <p>下载SubaruCommunity</p>
-        <a href="SubaruCommunity.exe" class="btn" download>点击下载</a>
+        <a href="https://wwbsw.lanzoub.com/iUEhD3mlx9ti" class="btn" download>点击下载</a>
         -v1.0.0
         <p style="font-size:0.95em;color:#999;margin-top:16px;">最新版本：v1.0.0<br>文件大小：12MB</p>
     </div>
